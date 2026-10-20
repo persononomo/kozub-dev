@@ -1,5 +1,6 @@
 .DS_Store
 .superpowers/
+.wrangler/
 preflight-godaddy-report.md
 preflight-inakshe-snapshot.md
 *.swp
