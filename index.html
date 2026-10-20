@@ -252,10 +252,10 @@
     }
 
     .worked-at .logos {
-      display: flex;
-      flex-wrap: wrap;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
       align-items: center;
-      gap: 20px 32px;
+      gap: 22px 24px;
     }
 
     .worked-at .logos a {
@@ -429,7 +429,7 @@
       .highlights li { grid-template-columns: 52px 1fr; gap: 16px; padding: 22px 0 20px; }
       .highlights .num { font-size: 24px; }
       .highlights .text { font-size: 16px; }
-      .worked-at .logos { gap: 14px 24px; }
+      .worked-at .logos { grid-template-columns: repeat(2, 1fr); gap: 16px 18px; }
       .worked-at .logos a span { font-size: 12px; letter-spacing: 0.06em; }
       .also-building .rows { grid-template-columns: 1fr; gap: 12px; }
       .also-building .rows a { font-size: 18px; }
