@@ -1,0 +1,377 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Pavlo Kozub — Engineering cloud platforms at scale</title>
+  <meta name="description" content="Senior DevOps with 10+ years across software and cloud. Multi-region Kubernetes, AWS, observability.">
+  <meta name="theme-color" content="#F5EFE6" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#1A1614" media="(prefers-color-scheme: dark)">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT@9..144,300..900,0..100&family=Newsreader:opsz,wght,ital@6..72,400..600,0..1&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+  <script>
+    // Set theme before paint to avoid flash
+    (function(){
+      try {
+        var params = new URLSearchParams(location.search);
+        var override = params.get('theme');
+        var stored = localStorage.getItem('theme');
+        var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        document.documentElement.dataset.theme = override || stored || (prefersDark ? 'dark' : 'light');
+      } catch (e) {}
+    })();
+  </script>
+
+  <style>
+    /* Light theme (default) */
+    :root,
+    :root[data-theme="light"] {
+      --cream: #F5EFE6;
+      --paper: #EFE7DA;
+      --ink: #1A1614;
+      --ink-soft: rgba(26, 22, 20, 0.66);
+      --ink-muted: rgba(26, 22, 20, 0.42);
+      --terracotta: #B85C3C;
+      --terracotta-deep: #93462E;
+      --clay: #D9C9B5;
+    }
+
+    /* Dark theme */
+    :root[data-theme="dark"] {
+      --cream: #18130F;
+      --paper: #221C18;
+      --ink: #EDE2D2;
+      --ink-soft: rgba(237, 226, 210, 0.66);
+      --ink-muted: rgba(237, 226, 210, 0.40);
+      --terracotta: #D9764F;       /* warmer/brighter on dark */
+      --terracotta-deep: #B85C3C;
+      --clay: #3A312A;
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html { background: var(--cream); transition: background 320ms ease; }
+
+    body {
+      background: var(--cream);
+      color: var(--ink);
+      font-family: 'Newsreader', Georgia, serif;
+      font-size: 19px;
+      line-height: 1.55;
+      font-feature-settings: "ss01", "ss02";
+      font-variation-settings: 'opsz' 16;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      min-height: 100vh;
+      overflow-x: hidden;
+      transition: background 320ms ease, color 320ms ease;
+    }
+
+    /* — fixed corners: brand + theme toggle — */
+    .mark {
+      position: fixed;
+      top: 36px;
+      left: 40px;
+      font-family: 'Fraunces', Georgia, serif;
+      font-weight: 700;
+      font-variation-settings: 'opsz' 24, 'SOFT' 100;
+      font-size: 20px;
+      color: var(--terracotta);
+      letter-spacing: -0.01em;
+      z-index: 10;
+      text-decoration: none;
+    }
+    .mark::after {
+      content: '';
+      display: inline-block;
+      width: 6px; height: 6px;
+      background: var(--terracotta);
+      border-radius: 50%;
+      margin-left: 1px;
+      vertical-align: 0.05em;
+    }
+
+    .theme-toggle {
+      position: fixed;
+      top: 32px;
+      right: 36px;
+      width: 32px;
+      height: 32px;
+      border: 1px solid var(--clay);
+      border-radius: 50%;
+      background: transparent;
+      color: var(--ink);
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 10;
+      transition: border-color 250ms ease, color 250ms ease, transform 350ms cubic-bezier(0.65,0,0.35,1);
+      -webkit-appearance: none;
+      appearance: none;
+    }
+    .theme-toggle:hover { border-color: var(--terracotta); color: var(--terracotta); transform: rotate(20deg); }
+    .theme-toggle svg { width: 15px; height: 15px; }
+    .theme-toggle .icon-sun { display: none; }
+    .theme-toggle .icon-moon { display: inline; }
+    :root[data-theme="dark"] .theme-toggle .icon-sun { display: inline; }
+    :root[data-theme="dark"] .theme-toggle .icon-moon { display: none; }
+
+    main {
+      max-width: 640px;
+      margin: 0 auto;
+      padding: 168px 40px 96px;
+    }
+
+    /* — hero — */
+    .hero { margin-bottom: 88px; }
+
+    .hero h1 {
+      font-family: 'Fraunces', Georgia, serif;
+      font-weight: 500;
+      font-variation-settings: 'opsz' 144, 'SOFT' 80;
+      font-size: clamp(52px, 8.4vw, 104px);
+      line-height: 0.94;
+      letter-spacing: -0.025em;
+      color: var(--ink);
+      margin-bottom: 28px;
+      animation: rise 900ms cubic-bezier(0.16, 1, 0.3, 1) both;
+    }
+
+    .hero .tagline {
+      font-family: 'Fraunces', Georgia, serif;
+      font-style: italic;
+      font-weight: 400;
+      font-variation-settings: 'opsz' 24, 'SOFT' 60;
+      font-size: 24px;
+      line-height: 1.4;
+      color: var(--ink-soft);
+      margin-bottom: 20px;
+      animation: rise 900ms cubic-bezier(0.16, 1, 0.3, 1) 120ms both;
+    }
+
+    .hero .loc {
+      font-family: 'JetBrains Mono', ui-monospace, monospace;
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--terracotta);
+      animation: rise 900ms cubic-bezier(0.16, 1, 0.3, 1) 240ms both;
+    }
+
+    /* — about — */
+    .about {
+      margin-bottom: 88px;
+      animation: rise 900ms cubic-bezier(0.16, 1, 0.3, 1) 380ms both;
+    }
+
+    .about p {
+      font-size: 19px;
+      line-height: 1.66;
+      font-feature-settings: "ss01", "kern";
+      font-variant-numeric: lining-nums;
+      text-align: justify;
+      text-justify: inter-word;
+      hyphens: auto;
+      -webkit-hyphens: auto;
+    }
+    .about p + p { margin-top: 16px; }
+
+    .about strong {
+      color: var(--ink);
+      font-weight: 600;
+    }
+
+    /* — highlights — */
+    .highlights {
+      margin-bottom: 96px;
+      animation: rise 900ms cubic-bezier(0.16, 1, 0.3, 1) 520ms both;
+    }
+
+    .highlights ol {
+      list-style: none;
+      border-top: 1px solid var(--clay);
+    }
+
+    .highlights li {
+      display: grid;
+      grid-template-columns: 72px 1fr;
+      gap: 24px;
+      padding: 26px 0 24px;
+      border-bottom: 1px solid var(--clay);
+      align-items: baseline;
+    }
+
+    .highlights .num {
+      font-family: 'Fraunces', Georgia, serif;
+      font-weight: 500;
+      font-variation-settings: 'opsz' 60, 'SOFT' 100;
+      font-size: 30px;
+      line-height: 1;
+      color: var(--terracotta);
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+
+    .highlights .text {
+      font-size: 17px;
+      line-height: 1.52;
+      color: var(--ink);
+      font-variant-numeric: lining-nums;
+    }
+
+    /* — contact — */
+    .contact {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 22px 40px;
+      margin-bottom: 96px;
+      animation: rise 900ms cubic-bezier(0.16, 1, 0.3, 1) 660ms both;
+    }
+
+    .contact a {
+      position: relative;
+      color: var(--ink);
+      text-decoration: none;
+      font-family: 'JetBrains Mono', ui-monospace, monospace;
+      font-size: 14px;
+      font-weight: 500;
+      letter-spacing: 0.10em;
+      text-transform: uppercase;
+      padding-bottom: 5px;
+      transition: color 280ms ease;
+    }
+
+    .contact a::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      right: 100%;
+      bottom: 0;
+      height: 1px;
+      background: var(--terracotta);
+      transition: right 420ms cubic-bezier(0.65, 0, 0.35, 1);
+    }
+
+    .contact a:hover,
+    .contact a:focus-visible {
+      color: var(--terracotta);
+      outline: none;
+    }
+
+    .contact a:hover::after,
+    .contact a:focus-visible::after {
+      right: 0;
+    }
+
+    /* — footer — */
+    footer {
+      font-family: 'JetBrains Mono', ui-monospace, monospace;
+      font-size: 11px;
+      letter-spacing: 0.20em;
+      text-transform: uppercase;
+      color: var(--ink-muted);
+      padding: 0 40px 40px;
+      text-align: center;
+      animation: rise 900ms cubic-bezier(0.16, 1, 0.3, 1) 800ms both;
+    }
+
+    /* — motion — */
+    @keyframes rise {
+      from { opacity: 0; transform: translateY(18px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-delay: 0ms !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+
+    /* — mobile — */
+    @media (max-width: 640px) {
+      .mark { top: 24px; left: 24px; font-size: 18px; }
+      .theme-toggle { top: 20px; right: 24px; width: 30px; height: 30px; }
+      main { padding: 128px 24px 64px; }
+      .hero { margin-bottom: 64px; }
+      .hero h1 { font-size: clamp(44px, 12vw, 72px); }
+      .hero .tagline { font-size: 21px; }
+      .about, .highlights { margin-bottom: 64px; }
+      .highlights li { grid-template-columns: 52px 1fr; gap: 16px; padding: 22px 0 20px; }
+      .highlights .num { font-size: 24px; }
+      .highlights .text { font-size: 16px; }
+      .contact { gap: 16px 32px; margin-bottom: 72px; }
+      .contact a { font-size: 13px; }
+    }
+  </style>
+</head>
+<body>
+  <a href="/" class="mark" aria-label="Pavlo Kozub — home">pk</a>
+
+  <button class="theme-toggle" type="button" aria-label="Toggle color theme" onclick="(function(){var d=document.documentElement;var t=d.dataset.theme==='dark'?'light':'dark';d.dataset.theme=t;try{localStorage.setItem('theme',t);}catch(e){}})()">
+    <!-- moon: shown in light mode -->
+    <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+    </svg>
+    <!-- sun: shown in dark mode -->
+    <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <circle cx="12" cy="12" r="4.2"/>
+      <line x1="12" y1="2" x2="12" y2="4.5"/>
+      <line x1="12" y1="19.5" x2="12" y2="22"/>
+      <line x1="2" y1="12" x2="4.5" y2="12"/>
+      <line x1="19.5" y1="12" x2="22" y2="12"/>
+      <line x1="4.93" y1="4.93" x2="6.7" y2="6.7"/>
+      <line x1="17.3" y1="17.3" x2="19.07" y2="19.07"/>
+      <line x1="4.93" y1="19.07" x2="6.7" y2="17.3"/>
+      <line x1="17.3" y1="6.7" x2="19.07" y2="4.93"/>
+    </svg>
+  </button>
+
+  <main>
+    <section class="hero">
+      <h1>Pavlo Kozub</h1>
+      <p class="tagline">Engineering cloud platforms at scale.</p>
+      <p class="loc">Krakow</p>
+    </section>
+
+    <section class="about">
+      <p>Senior DevOps with 10+ years across software and cloud. Currently on the platform team at a global iGaming product running multi-region Kubernetes — <strong>5 EKS clusters, 5 AWS accounts, 400+ microservices</strong>. Earlier, founding CTO at Oversecured, where we built a mobile-app vulnerability scanner that reached <strong>5,000 clients</strong> on a serverless-first architecture. Most of my work sits at the intersection of AWS, Kubernetes, IaC, and observability.</p>
+    </section>
+
+    <section class="highlights" aria-label="Selected highlights">
+      <ol>
+        <li>
+          <span class="num">01</span>
+          <span class="text">Multi-region Kubernetes platform — 5 EKS clusters, 5 AWS accounts, 400+ microservices, global traffic.</span>
+        </li>
+        <li>
+          <span class="num">02</span>
+          <span class="text">Led a multi-tenant migration of 150+ partner domains with zero downtime.</span>
+        </li>
+        <li>
+          <span class="num">03</span>
+          <span class="text">Founding CTO at Oversecured — built and ran the platform up to 5,000 clients on serverless.</span>
+        </li>
+      </ol>
+    </section>
+
+    <section class="contact" aria-label="Contact">
+      <a href="mailto:contact@kozub.dev">contact@kozub.dev</a>
+      <a href="https://www.linkedin.com/in/pavlokozub" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+      <a href="https://github.com/persononomo" target="_blank" rel="noopener noreferrer">GitHub</a>
+      <a href="/cv.pdf" target="_blank" rel="noopener noreferrer">CV (PDF)</a>
+    </section>
+  </main>
+
+  <footer>© 2026 Pavlo Kozub</footer>
+</body>
+</html>
