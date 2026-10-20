@@ -227,13 +227,126 @@
       font-variant-numeric: lining-nums;
     }
 
+    /* — worked at — */
+    .worked-at {
+      margin-bottom: 88px;
+      animation: rise 900ms cubic-bezier(0.16, 1, 0.3, 1) 450ms both;
+    }
+
+    .worked-at .label,
+    .also-building .label {
+      font-family: 'JetBrains Mono', ui-monospace, monospace;
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--terracotta);
+      margin-bottom: 20px;
+    }
+
+    .worked-at .logos {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 20px 32px;
+    }
+
+    .worked-at .logos a {
+      display: inline-flex;
+      align-items: center;
+      color: var(--ink-soft);
+      opacity: 0.78;
+      text-decoration: none;
+      transition: color 240ms ease, opacity 240ms ease, transform 240ms cubic-bezier(0.65,0,0.35,1);
+    }
+
+    .worked-at .logos a span {
+      font-family: 'JetBrains Mono', ui-monospace, monospace;
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      line-height: 1;
+    }
+
+    .worked-at .logos a:hover,
+    .worked-at .logos a:focus-visible {
+      color: var(--brand, var(--terracotta));
+      opacity: 1;
+      outline: none;
+    }
+
+    @media (prefers-reduced-motion: no-preference) {
+      .worked-at .logos a:hover,
+      .worked-at .logos a:focus-visible {
+        transform: translateY(-1px);
+      }
+    }
+
+    /* — also building — */
+    .also-building {
+      margin-bottom: 88px;
+      animation: rise 900ms cubic-bezier(0.16, 1, 0.3, 1) 580ms both;
+    }
+
+    .also-building .rows {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 10px 24px;
+      align-items: baseline;
+      border-top: 1px solid var(--clay);
+      padding-top: 20px;
+    }
+
+    .also-building .rows a {
+      position: relative;
+      font-family: 'Fraunces', Georgia, serif;
+      font-weight: 500;
+      font-variation-settings: 'opsz' 24, 'SOFT' 80;
+      font-size: 20px;
+      line-height: 1.3;
+      color: var(--terracotta);
+      text-decoration: none;
+      padding-bottom: 3px;
+      transition: color 280ms ease;
+    }
+
+    .also-building .rows a::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      right: 100%;
+      bottom: 0;
+      height: 1px;
+      background: var(--terracotta);
+      transition: right 420ms cubic-bezier(0.65, 0, 0.35, 1);
+    }
+
+    .also-building .rows a:hover,
+    .also-building .rows a:focus-visible {
+      color: var(--terracotta-deep);
+      outline: none;
+    }
+
+    .also-building .rows a:hover::after,
+    .also-building .rows a:focus-visible::after {
+      right: 0;
+    }
+
+    .also-building .rows .descriptor {
+      font-family: 'Newsreader', Georgia, serif;
+      font-style: italic;
+      font-size: 17px;
+      line-height: 1.5;
+      color: var(--ink-soft);
+    }
+
     /* — contact — */
     .contact {
       display: flex;
       flex-wrap: wrap;
       gap: 22px 40px;
       margin-bottom: 96px;
-      animation: rise 900ms cubic-bezier(0.16, 1, 0.3, 1) 660ms both;
+      animation: rise 900ms cubic-bezier(0.16, 1, 0.3, 1) 720ms both;
     }
 
     .contact a {
@@ -280,7 +393,7 @@
       color: var(--ink-muted);
       padding: 0 40px 40px;
       text-align: center;
-      animation: rise 900ms cubic-bezier(0.16, 1, 0.3, 1) 800ms both;
+      animation: rise 900ms cubic-bezier(0.16, 1, 0.3, 1) 860ms both;
     }
 
     /* — motion — */
@@ -305,10 +418,15 @@
       .hero { margin-bottom: 64px; }
       .hero h1 { font-size: clamp(44px, 12vw, 72px); }
       .hero .tagline { font-size: 21px; }
-      .about, .highlights { margin-bottom: 64px; }
+      .about, .highlights, .worked-at, .also-building { margin-bottom: 64px; }
       .highlights li { grid-template-columns: 52px 1fr; gap: 16px; padding: 22px 0 20px; }
       .highlights .num { font-size: 24px; }
       .highlights .text { font-size: 16px; }
+      .worked-at .logos { gap: 14px 24px; }
+      .worked-at .logos a span { font-size: 12px; letter-spacing: 0.06em; }
+      .also-building .rows { grid-template-columns: 1fr; gap: 6px; }
+      .also-building .rows a { font-size: 18px; }
+      .also-building .rows .descriptor { font-size: 15px; }
       .contact { gap: 16px 32px; margin-bottom: 72px; }
       .contact a { font-size: 13px; }
     }
@@ -344,7 +462,19 @@
     </section>
 
     <section class="about">
-      <p>Senior DevOps with 10+ years across software and cloud. Currently on the platform team at a global iGaming product running multi-region Kubernetes — <strong>5 EKS clusters, 5 AWS accounts, 400+ microservices</strong>. Earlier, founding CTO at Oversecured, where we built a mobile-app vulnerability scanner that reached <strong>5,000 clients</strong> on a serverless-first architecture. Most of my work sits at the intersection of AWS, Kubernetes, IaC, and observability.</p>
+      <p>Senior DevOps with 10+ years across software and cloud. Currently on the platform team at <strong>Phoenix365</strong> — multi-region Kubernetes, 5 EKS clusters, 5 AWS accounts, 400+ microservices. Earlier, founding CTO at Oversecured, where we built a mobile-app vulnerability scanner that reached <strong>5,000 clients</strong> on a serverless-first architecture. Most of my work sits at the intersection of AWS, Kubernetes, IaC, and observability.</p>
+    </section>
+
+    <section class="worked-at" aria-label="Companies I've worked at">
+      <p class="label">Worked at</p>
+      <div class="logos">
+        <a href="https://phoenix365.tech/" target="_blank" rel="noopener noreferrer" style="--brand: #E63946;" aria-label="Phoenix365"><span>Phoenix365</span></a>
+        <a href="https://oversecured.com/" target="_blank" rel="noopener noreferrer" style="--brand: #7E22CE;" aria-label="Oversecured"><span>Oversecured</span></a>
+        <a href="https://www.infosys.com/" target="_blank" rel="noopener noreferrer" style="--brand: #007CC3;" aria-label="Infosys"><span>Infosys</span></a>
+        <a href="https://keyua.org/" target="_blank" rel="noopener noreferrer" style="--brand: #0EA5E9;" aria-label="KeyUA"><span>KeyUA</span></a>
+        <a href="https://perfsys.com/" target="_blank" rel="noopener noreferrer" style="--brand: #0066CC;" aria-label="Perfsys"><span>perfsys</span></a>
+        <a href="https://www.privatbank.ua/" target="_blank" rel="noopener noreferrer" style="--brand: #008040;" aria-label="PrivatBank"><span>PrivatBank</span></a>
+      </div>
     </section>
 
     <section class="highlights" aria-label="Selected highlights">
@@ -364,10 +494,18 @@
       </ol>
     </section>
 
+    <section class="also-building" aria-label="Also building">
+      <p class="label">Also building</p>
+      <div class="rows">
+        <a href="https://inakshe.com/" target="_blank" rel="me noopener noreferrer">inakshe ↗</a>
+        <p class="descriptor">A catalog of specialists who work well with neurodivergent people.</p>
+      </div>
+    </section>
+
     <section class="contact" aria-label="Contact">
       <a href="mailto:contact@kozub.dev">contact@kozub.dev</a>
-      <a href="https://www.linkedin.com/in/pavlokozub" target="_blank" rel="noopener noreferrer">LinkedIn</a>
-      <a href="https://github.com/persononomo" target="_blank" rel="noopener noreferrer">GitHub</a>
+      <a href="https://www.linkedin.com/in/pavlokozub" target="_blank" rel="me noopener noreferrer">LinkedIn</a>
+      <a href="https://github.com/persononomo" target="_blank" rel="me noopener noreferrer">GitHub</a>
       <a href="/cv.pdf" target="_blank" rel="noopener noreferrer">CV (PDF)</a>
     </section>
   </main>
