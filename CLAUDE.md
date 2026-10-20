@@ -19,10 +19,15 @@
 
 ### Правка контента
 1. Edit `index.html` → `git add . && git commit -m "..." && git push`
-2. **Deploy manual** (пока): `npx wrangler pages deploy . --project-name=kozub-dev --branch=main --commit-dirty=true`
+2. **Auto-deploy** через GitHub Actions (`.github/workflows/deploy.yml`): push в `main` → `cloudflare/wrangler-action@v4` → `wrangler pages deploy . --project-name=kozub-dev --branch=main`
 3. Через ~30 сек изменения live на `https://kozub.dev/`
+4. Workflow runs: `gh run list --repo persononomo/kozub-dev --workflow deploy.yml` или https://github.com/persononomo/kozub-dev/actions
 
-Git-connect to CF Pages → auto-deploy on push пока **не настроен** — unified Workers Builds UX дал токен без `Pages:Edit`. Можно подключить через Pages → kozub-dev → Settings → Builds уже внутри существующего проекта (отдельная задача).
+Secrets в GitHub repo (не менять в репо, только через Settings → Secrets):
+- `CLOUDFLARE_API_TOKEN` — custom token с scope `Account.Cloudflare Pages:Edit` + `Account.Account Settings:Read`
+- `CLOUDFLARE_ACCOUNT_ID` — твой CF account ID
+
+Если захочется выпустить руками: `npx wrangler pages deploy . --project-name=kozub-dev --branch=main --commit-dirty=true` работает параллельно (создаёт отдельный deployment в том же проекте).
 
 ### Обновление CV
 1. Регенерируй PDF в `~/projects/persononomo/assistant/devops-side-job/variants/`
@@ -61,7 +66,7 @@ Git-connect to CF Pages → auto-deploy on push пока **не настроен
 
 ## TODO
 
-- [ ] Wire git-connect to CF Pages (auto-deploy on push)
+- [x] ~~Wire git-connect to CF Pages (auto-deploy on push)~~ — done via GitHub Actions + wrangler-action (2026-10-20)
 - [ ] HSTS max-age 6mo → 12mo после 2 недель clean (цель: 2026-11-03)
 - [ ] DMARC `p=none` → `p=quarantine` после 1 недели clean (цель: 2026-10-27)
 - [ ] Full registrar transfer GoDaddy → Cloudflare на следующий renewal
