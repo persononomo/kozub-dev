@@ -111,20 +111,20 @@
 
     .theme-toggle {
       position: fixed;
-      top: 32px;
-      left: 84px;
+      bottom: 32px;
+      right: 36px;
       width: 32px;
       height: 32px;
       border: 1px solid var(--clay);
       border-radius: 50%;
-      background: transparent;
+      background: var(--cream);
       color: var(--ink);
       cursor: pointer;
       display: inline-flex;
       align-items: center;
       justify-content: center;
       z-index: 10;
-      transition: border-color 250ms ease, color 250ms ease, transform 350ms cubic-bezier(0.65,0,0.35,1);
+      transition: border-color 250ms ease, color 250ms ease, background 320ms ease, transform 350ms cubic-bezier(0.65,0,0.35,1);
       -webkit-appearance: none;
       appearance: none;
     }
@@ -499,7 +499,7 @@
     /* — mobile — */
     @media (max-width: 640px) {
       .mark { top: 24px; left: 24px; font-size: 18px; }
-      .theme-toggle { top: 20px; left: 62px; width: 30px; height: 30px; }
+      .theme-toggle { bottom: 20px; right: 24px; width: 30px; height: 30px; }
       .github-corner svg { width: 60px; height: 60px; }
       .github-corner:hover .octo-arm { animation: none; }
       .github-corner .octo-arm { animation: octo-wave 560ms ease-in-out; }
