@@ -27,11 +27,11 @@ Requires `pandoc` and `typst` (both via Homebrew). Output: `cv.pdf`, A4, 2 pages
 
 ## Stack
 
-- Hosting: [Cloudflare Pages](https://pages.cloudflare.com/) — same account as [inakshe.com](https://inakshe.com)
+- Hosting: [Cloudflare Pages](https://pages.cloudflare.com/)
 - DNS: Cloudflare (CNAME-flattened apex)
 - CI: GitHub Actions + `cloudflare/wrangler-action`
 - Email: Cloudflare Email Routing (`contact@kozub.dev` → Gmail)
 
 ## License
 
-Code: MIT. Content (bio, principles, CV): all rights reserved.
+Code (HTML, CSS, JS, build script) is [MIT](./LICENSE). Content — bio, "How I work" principles, CV — is copyrighted; please don't reuse without asking.
