@@ -264,19 +264,30 @@
 
     .worked-at .logos a {
       display: inline-flex;
-      align-items: center;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 6px;
       color: var(--ink-soft);
       opacity: 0.78;
       text-decoration: none;
       transition: color 240ms ease, opacity 240ms ease, transform 240ms cubic-bezier(0.65,0,0.35,1);
     }
 
-    .worked-at .logos a span {
+    .worked-at .logos a .name {
       font-family: 'JetBrains Mono', ui-monospace, monospace;
       font-size: 13px;
       font-weight: 500;
       letter-spacing: 0.08em;
       line-height: 1;
+    }
+
+    .worked-at .logos a .years {
+      font-family: 'JetBrains Mono', ui-monospace, monospace;
+      font-size: 11px;
+      font-weight: 400;
+      letter-spacing: 0.06em;
+      line-height: 1;
+      color: var(--ink-muted);
     }
 
     .worked-at .logos a:hover,
@@ -479,12 +490,12 @@
     <section class="worked-at" aria-label="Companies I've worked at">
       <p class="label">Worked at</p>
       <div class="logos">
-        <a href="https://phoenix365.tech/" target="_blank" rel="noopener noreferrer" style="--brand: #E63946;" aria-label="Phoenix365" title="phoenix365.tech — iGaming platform"><span>Phoenix365</span></a>
-        <a href="https://oversecured.com/" target="_blank" rel="noopener noreferrer" style="--brand: #7E22CE;" aria-label="Oversecured"><span>Oversecured</span></a>
-        <a href="https://www.infosys.com/" target="_blank" rel="noopener noreferrer" style="--brand: #007CC3;" aria-label="Infosys"><span>Infosys</span></a>
-        <a href="https://keyua.org/" target="_blank" rel="noopener noreferrer" style="--brand: #0EA5E9;" aria-label="KeyUA"><span>KeyUA</span></a>
-        <a href="https://perfsys.com/" target="_blank" rel="noopener noreferrer" style="--brand: #0066CC;" aria-label="Perfsys"><span>Perfsys</span></a>
-        <a href="https://www.privatbank.ua/" target="_blank" rel="noopener noreferrer" style="--brand: #008040;" aria-label="PrivatBank"><span>PrivatBank</span></a>
+        <a href="https://phoenix365.tech/" target="_blank" rel="noopener noreferrer" style="--brand: #E63946;" aria-label="Phoenix365, 2024 to present" title="phoenix365.tech — iGaming platform"><span class="name">Phoenix365</span><span class="years">2024 –</span></a>
+        <a href="https://oversecured.com/" target="_blank" rel="noopener noreferrer" style="--brand: #7E22CE;" aria-label="Oversecured, 2018 to 2024"><span class="name">Oversecured</span><span class="years">2018 – 2024</span></a>
+        <a href="https://keyua.org/" target="_blank" rel="noopener noreferrer" style="--brand: #0EA5E9;" aria-label="KeyUA, 2021 to 2022"><span class="name">KeyUA</span><span class="years">2021 – 2022</span></a>
+        <a href="https://www.infosys.com/" target="_blank" rel="noopener noreferrer" style="--brand: #007CC3;" aria-label="Infosys, 2020 to 2021"><span class="name">Infosys</span><span class="years">2020 – 2021</span></a>
+        <a href="https://perfsys.com/" target="_blank" rel="noopener noreferrer" style="--brand: #0066CC;" aria-label="Perfsys, 2017 to 2020"><span class="name">Perfsys</span><span class="years">2017 – 2020</span></a>
+        <a href="https://www.privatbank.ua/" target="_blank" rel="noopener noreferrer" style="--brand: #008040;" aria-label="PrivatBank, 2016 to 2017"><span class="name">PrivatBank</span><span class="years">2016 – 2017</span></a>
       </div>
     </section>
 
