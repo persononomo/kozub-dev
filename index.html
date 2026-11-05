@@ -109,10 +109,10 @@
       vertical-align: 0.05em;
     }
 
-    .theme-toggle {
+    .theme-toggle,
+    .github-link {
       position: fixed;
       top: 32px;
-      right: 36px;
       width: 32px;
       height: 32px;
       border: 1px solid var(--clay);
@@ -127,9 +127,15 @@
       transition: border-color 250ms ease, color 250ms ease, transform 350ms cubic-bezier(0.65,0,0.35,1);
       -webkit-appearance: none;
       appearance: none;
+      text-decoration: none;
     }
+    .theme-toggle { right: 36px; }
+    .github-link { right: 76px; }
     .theme-toggle:hover { border-color: var(--terracotta); color: var(--terracotta); transform: rotate(20deg); }
-    .theme-toggle svg { width: 15px; height: 15px; }
+    .github-link:hover,
+    .github-link:focus-visible { border-color: var(--terracotta); color: var(--terracotta); outline: none; }
+    .theme-toggle svg,
+    .github-link svg { width: 15px; height: 15px; }
     .theme-toggle .icon-sun { display: none; }
     .theme-toggle .icon-moon { display: inline; }
     :root[data-theme="dark"] .theme-toggle .icon-sun { display: inline; }
@@ -457,18 +463,6 @@
       animation: rise 900ms cubic-bezier(0.16, 1, 0.3, 1) 860ms both;
     }
 
-    footer a {
-      color: var(--ink-muted);
-      text-decoration: none;
-      transition: color 240ms ease;
-    }
-
-    footer a:hover,
-    footer a:focus-visible {
-      color: var(--terracotta);
-      outline: none;
-    }
-
     /* — motion — */
     @keyframes rise {
       from { opacity: 0; transform: translateY(18px); }
@@ -486,7 +480,9 @@
     /* — mobile — */
     @media (max-width: 640px) {
       .mark { top: 24px; left: 24px; font-size: 18px; }
-      .theme-toggle { top: 20px; right: 24px; width: 30px; height: 30px; }
+      .theme-toggle, .github-link { top: 20px; width: 30px; height: 30px; }
+      .theme-toggle { right: 24px; }
+      .github-link { right: 62px; }
       main { padding: 128px 24px 64px; }
       .hero { margin-bottom: 64px; }
       .hero h1 { font-size: clamp(44px, 12vw, 72px); }
@@ -511,6 +507,12 @@
 </head>
 <body>
   <a href="/" class="mark" aria-label="Pavlo Kozub — home">pk</a>
+
+  <a class="github-link" href="https://github.com/persononomo/kozub-dev" target="_blank" rel="noopener noreferrer" aria-label="View source on GitHub" title="View source on GitHub">
+    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+      <path d="M12 .5C5.37.5 0 5.87 0 12.5c0 5.3 3.44 9.8 8.21 11.39.6.11.82-.26.82-.58 0-.29-.01-1.05-.02-2.06-3.34.72-4.04-1.61-4.04-1.61-.55-1.39-1.33-1.76-1.33-1.76-1.09-.74.08-.73.08-.73 1.21.08 1.85 1.24 1.85 1.24 1.07 1.83 2.81 1.3 3.49.99.11-.77.42-1.3.76-1.6-2.67-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.12-.3-.54-1.53.12-3.18 0 0 1.01-.32 3.3 1.23.96-.27 1.99-.4 3.02-.4s2.06.14 3.02.4c2.29-1.55 3.3-1.23 3.3-1.23.66 1.65.24 2.87.12 3.18.77.84 1.24 1.91 1.24 3.22 0 4.61-2.8 5.63-5.47 5.92.43.37.81 1.1.81 2.22 0 1.61-.02 2.9-.02 3.3 0 .32.22.7.82.58A12.01 12.01 0 0 0 24 12.5C24 5.87 18.63.5 12 .5z"/>
+    </svg>
+  </a>
 
   <button class="theme-toggle" type="button" aria-label="Toggle color theme" onclick="(function(){var d=document.documentElement;var t=d.dataset.theme==='dark'?'light':'dark';d.dataset.theme=t;try{localStorage.setItem('theme',t);}catch(e){}})()">
     <!-- moon: shown in light mode -->
@@ -604,6 +606,6 @@
     </section>
   </main>
 
-  <footer>© 2026 Pavlo Kozub · <a href="https://github.com/persononomo/kozub-dev" target="_blank" rel="noopener noreferrer">one HTML file ↗</a></footer>
+  <footer>© 2026 Pavlo Kozub</footer>
 </body>
 </html>
