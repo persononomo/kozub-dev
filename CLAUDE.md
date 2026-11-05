@@ -30,9 +30,16 @@ Secrets в GitHub repo (не менять в репо, только через S
 Если захочется выпустить руками: `npx wrangler pages deploy . --project-name=kozub-dev --branch=main --commit-dirty=true` работает параллельно (создаёт отдельный deployment в том же проекте).
 
 ### Обновление CV
-1. Регенерируй PDF в `~/projects/persononomo/assistant/devops-side-job/variants/`
-2. Скопируй: `cp ~/projects/persononomo/assistant/devops-side-job/variants/<latest>.pdf ~/projects/persononomo/kozub-dev/cv.pdf`
-3. Commit + wrangler deploy
+Source of truth теперь живёт здесь: `cv-en.md` (переехал из `~/projects/persononomo/assistant/devops-side-job/` и `~/knowledge/projects/devops-side-job/` 2026-11-05).
+
+Workflow:
+1. Правь `cv-en.md`
+2. `./build-cv.sh` → собирает `cv.pdf` локально (pandoc + typst, 2 pages A4)
+3. `git add cv-en.md cv.pdf && git commit && git push` — auto-deploy через GHA
+
+Требования: `pandoc` + `typst` (оба через brew). Шрифт — Helvetica Neue (встроен в macOS).
+
+Старые локации (`~/projects/persononomo/assistant/devops-side-job/variants/*.md`, `~/knowledge/projects/devops-side-job/cv-en.md`) deprecated как source — при желании позже можно наоборот тянуть автоматом из kozub-dev туда.
 
 ### Обновление логотипов `WORKED AT`
 Все 6 — typographic wordmarks в JetBrains Mono, не SVG. Hover цвета заданы через `style="--brand: #..."` inline. Если захочется swap на реальные SVG — редактируй `<section class="worked-at">` в `index.html`.
