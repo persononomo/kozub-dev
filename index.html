@@ -245,7 +245,9 @@
     }
 
     .worked-at .label,
-    .also-building .label {
+    .also-building .label,
+    .principles .label,
+    .availability .label {
       font-family: 'JetBrains Mono', ui-monospace, monospace;
       font-size: 12px;
       font-weight: 500;
@@ -304,10 +306,33 @@
       }
     }
 
+    /* — principles — */
+    .principles {
+      margin-bottom: 88px;
+      animation: rise 900ms cubic-bezier(0.16, 1, 0.3, 1) 580ms both;
+    }
+
+    .principles .rules {
+      list-style: none;
+      border-left: 1px solid var(--clay);
+      padding-left: 24px;
+    }
+
+    .principles .rules li {
+      font-size: 17px;
+      line-height: 1.52;
+      color: var(--ink);
+      font-variant-numeric: lining-nums;
+    }
+
+    .principles .rules li + li {
+      margin-top: 12px;
+    }
+
     /* — also building — */
     .also-building {
       margin-bottom: 88px;
-      animation: rise 900ms cubic-bezier(0.16, 1, 0.3, 1) 580ms both;
+      animation: rise 900ms cubic-bezier(0.16, 1, 0.3, 1) 640ms both;
     }
 
     .also-building .rows {
@@ -362,13 +387,27 @@
       color: var(--ink-soft);
     }
 
+    /* — availability — */
+    .availability {
+      margin-bottom: 56px;
+      animation: rise 900ms cubic-bezier(0.16, 1, 0.3, 1) 700ms both;
+    }
+
+    .availability .line {
+      font-family: 'Newsreader', Georgia, serif;
+      font-style: italic;
+      font-size: 19px;
+      line-height: 1.55;
+      color: var(--ink-soft);
+    }
+
     /* — contact — */
     .contact {
       display: flex;
       flex-wrap: wrap;
       gap: 22px 40px;
       margin-bottom: 96px;
-      animation: rise 900ms cubic-bezier(0.16, 1, 0.3, 1) 720ms both;
+      animation: rise 900ms cubic-bezier(0.16, 1, 0.3, 1) 760ms both;
     }
 
     .contact a {
@@ -418,6 +457,18 @@
       animation: rise 900ms cubic-bezier(0.16, 1, 0.3, 1) 860ms both;
     }
 
+    footer a {
+      color: var(--ink-muted);
+      text-decoration: none;
+      transition: color 240ms ease;
+    }
+
+    footer a:hover,
+    footer a:focus-visible {
+      color: var(--terracotta);
+      outline: none;
+    }
+
     /* — motion — */
     @keyframes rise {
       from { opacity: 0; transform: translateY(18px); }
@@ -440,7 +491,11 @@
       .hero { margin-bottom: 64px; }
       .hero h1 { font-size: clamp(44px, 12vw, 72px); }
       .hero .tagline { font-size: 21px; }
-      .about, .highlights, .worked-at, .also-building { margin-bottom: 64px; }
+      .about, .highlights, .worked-at, .also-building, .principles { margin-bottom: 64px; }
+      .availability { margin-bottom: 48px; }
+      .principles .rules { padding-left: 20px; }
+      .principles .rules li { font-size: 16px; }
+      .availability .line { font-size: 17px; }
       .highlights li { grid-template-columns: 52px 1fr; gap: 16px; padding: 22px 0 20px; }
       .highlights .num { font-size: 24px; }
       .highlights .text { font-size: 16px; }
@@ -516,12 +571,29 @@
       </ol>
     </section>
 
+    <section class="principles" aria-label="How I work">
+      <p class="label">How I work</p>
+      <ol class="rules">
+        <li>Boring tech wins. Stability compounds.</li>
+        <li>Observability first — you can't improve what you can't see.</li>
+        <li>IaC for anything you'd regret rebuilding by hand.</li>
+        <li>Every production change needs a path back.</li>
+        <li>Managed services until the margin dies.</li>
+        <li>Cost is a reliability constraint, not an afterthought.</li>
+      </ol>
+    </section>
+
     <section class="also-building" aria-label="Also building">
       <p class="label">Also building</p>
       <div class="rows">
         <a href="https://inakshe.com/" target="_blank" rel="me noopener noreferrer">inakshe ↗</a>
         <p class="descriptor">A catalog of specialists who work well with neurodivergent people.</p>
       </div>
+    </section>
+
+    <section class="availability" aria-label="Availability">
+      <p class="label">Available for</p>
+      <p class="line">Fractional platform engineering, multi-region Kubernetes audits, and AWS cost engineering. Remote (B2B), Europe time zones.</p>
     </section>
 
     <section class="contact" aria-label="Contact">
@@ -532,6 +604,6 @@
     </section>
   </main>
 
-  <footer>© 2026 Pavlo Kozub</footer>
+  <footer>© 2026 Pavlo Kozub · One HTML file · <a href="https://github.com/persononomo/kozub-dev" target="_blank" rel="noopener noreferrer">source on GitHub</a></footer>
 </body>
 </html>
