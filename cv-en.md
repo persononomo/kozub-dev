@@ -1,7 +1,7 @@
 # Pavlo Kozub
 **Senior DevOps / Cloud Engineer** · Krakow, Poland · Remote (B2B)
 
-📧 pavlo.kozub@gmail.com · 📱 +48 502 180 641 · LinkedIn: [pavlokozub](https://www.linkedin.com/in/pavlokozub) · GitHub: [persononomo](https://github.com/persononomo) · Web: [kozub.dev](https://kozub.dev)
+📧 contact@kozub.dev · 📱 +48 502 180 641 · LinkedIn: [pavlokozub](https://www.linkedin.com/in/pavlokozub) · GitHub: [persononomo](https://github.com/persononomo) · Web: [kozub.dev](https://kozub.dev)
 
 ---
 
